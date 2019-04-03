@@ -46,3 +46,19 @@ Example Document:
     "time_net": "02:11:08"
 }
 ```
+
+## Run Flask App
+
+```console
+# Run Flask App
+foo@bar:~$ python flask_app.py
+* Serving Flask app "flask_app" (lazy loading)
+* Environment: production
+WARNING: Do not use the development server in a production environment.
+Use a production WSGI server instead.
+* Debug mode: on
+* Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+* Restarting with stat
+* Debugger is active!
+* Debugger PIN: 123-123-123
+```
