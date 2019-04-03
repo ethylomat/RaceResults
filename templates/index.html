@@ -1,0 +1,70 @@
+<html>
+   <head>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+      <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+      <style>
+         @import url('https://fonts.googleapis.com/css?family=Asap+Condensed:400,500,600,700');
+         body {
+             font-family: 'Asap Condensed', sans-serif;
+             background-color: #ecf0f1;
+             font-size: 110%;
+         }
+         .ui.card>.content>.header, .ui.cards>.card>.content>.header {
+            font-family: 'Asap Condensed', sans-serif;
+         }
+         .ui.form input:not([type]), .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=email], .ui.form input[type=file], .ui.form input[type=number], .ui.form input[type=password], .ui.form input[type=search], .ui.form input[type=tel], .ui.form input[type=text], .ui.form input[type=time], .ui.form input[type=url]{
+            font-family: 'Asap Condensed', sans-serif;
+         }
+         .ui.button{
+            font-family: 'Asap Condensed', sans-serif;
+            height: 2.62em;
+         }
+         h1, h2, h3, h4, h5{
+            font-family: 'Asap Condensed', sans-serif;
+         }
+         .ui.card .meta, .ui.cards>.card .meta {
+            color: rgb(100, 100, 100);
+         }
+      </style>
+   </head>
+   <body>
+      <div style="width: 600px; margin: 50px auto; padding: 0 0 50px 0;" class="content">
+
+         <h1>RaceResults</h1>
+
+         <form class="ui form" action="/" method="POST">
+            <div class="ui search">
+              <div style="width: 100%;" class="ui icon input">
+                <input class="prompt" type="text" name="search" value="{{ search }}" placeholder="Search ...">
+                <i class="search icon"></i>
+              </div>
+              <div class="results"></div>
+            </div>
+         </form>
+
+         {% for year in years %}
+             <h3 class="ui header">{{ year["_id"] }}</h3>
+             {% for result in year.raceresults %}
+                 <div style="width: 600px;" class="ui blue card">
+                    <div class="content">
+                       <div class="header">{{ result["firstname"]|default('', true) }} {{ result["lastname"]|default('', true) }} <span style="font-size: 80%; color: rgb(100,100,100); margin: 0 3px;">{{ result["team"]|default('', true) }}</span></div>
+                       <div class="meta">
+                          <b>Date: </b> {{ result["event_date"].strftime('%d.%m.%Y') |default('', true) }}<br>
+                          <b>Event: </b> {{ result["event_name"]|default('', true) }}<br>
+                          <b>Competition: </b>{{ result["competition"]|default('', true) }}
+                          {% if result["distance"] %}
+                          - Distance: {{ result["distance"] }}km
+                          {% endif %}
+                          <br>
+                          <b>Time: </b>{{ result["time"]|default('', true) }}<br>
+                           <b>Results Website: </b> <a href="{{ result.result_url }}">Link</a>
+                       </div>
+                       <p></p>
+                    </div>
+                 </div>
+             {% endfor %}
+         {% endfor %}
+
+      </div>
+   </body>
+</html>
